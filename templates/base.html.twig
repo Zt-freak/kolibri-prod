@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <style>
+            * {
+                font-family: 'Exo 2', 'Century Gothic', 'Arial', sans-serif;
+            }
+
+            html, body {
+                margin: 0;
+                background-color: #202020;
+            }
+
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+
+                margin-top: 10px;
+            }
+
+            nav a {
+                text-decoration: none;
+                color: #ffffff;
+            }
+
+            h1, a, p {
+                color: #ffffff;
+            }
+
+            .content {
+                margin-top: 50px;
+                display:flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .post {
+
+                width: 500px;
+
+                margin-bottom: 15px;
+                padding-left: 40px;
+                padding: 5px;
+                padding-bottom: 15px;
+
+                border-radius: 10px;
+                background-color: #606060;
+
+                color: white;
+            }
+
+            .post--parent{
+
+                width: 500px;
+
+                margin-bottom: 15px;
+                padding-left: 20px;
+                padding: 5px;
+                padding-bottom: 15px;
+
+                border-radius: 10px;
+                background-color: #303030;
+
+                color: white;
+            }
+
+            .post--child {
+
+                width: 500px;
+
+                margin-bottom: 15px;
+                padding-left: 60px;
+                padding: 5px;
+                padding-bottom: 15px;
+
+                border-radius: 10px;
+                background-color: #303030;
+
+                color: white;
+            }
+
+            .post--unapproved {
+                background-color: #b0413e;
+            }
+
+            .post__userbox {
+                display: flex;
+                align-items: center;
+            }
+
+            .post__avatar {
+                width: 50px;
+                height: 50px;
+
+                border-radius: 50%;
+            }
+
+            .post__username {
+                font-weight: bold;
+                margin-left: 10px;
+            }
+
+            .post__content {
+                margin-left: 60px;
+            }
+
+            .post__content--category {
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .post__content--category a {
+                text-decoration: none;
+                color: white;
+                font-size: 20pt;
+            }
+
+            .post__content a {
+                text-decoration: none;
+                color: white;
+                margin: 0;
+            }
+            .post__content--category small {
+                margin: 0;
+            }
+
+            label {
+                color: #FFFFFF;
+            }
+
+            #comment {
+                display: flex;
+            }
+
+            #comment_content {
+                width: 500px;
+                border: none;
+                border-radius: 10px;
+                padding: 5px;
+                resize: none;
+            }
+
+            .btn {
+                border: none;
+                background: none;
+                cursor: pointer;
+                color: #ffffff;
+                font-size: 15pt;
+            }
+
+            .replies {
+                color: #ffffff;
+                font-size: 15pt;
+            }
+
+            .norepliesfound {
+                color: #ffffff;
+            }
+
+            .post__content .approvelink {
+                text-decoration: underline;
+            }
+
+            .pagination {
+                margin-bottom: 20px;
+            }
+
+            .current {
+                color: #ffffff;
+            }
+
+            .table {
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <a href="{{ path('category_index') }}">Categories</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('user_index') }}">Users</a>
+                <a href="{{ path('post_index') }}">Posts</a>
+                <a href="{{ path('user_unapproved') }}">Unapproved Users</a>
+                <a href="{{ path('post_unapproved') }}">Unapproved Posts</a>
+            {% endif %}
+            {% if app.user %}
+                <a href="{{ path('user_edit', {'id': app.user.id}) }}">Edit profile</a>
+                <a href="{{ path('fos_user_security_logout') }}">Log out</a>
+            {% else %}
+                <a href="{{ path('fos_user_security_login') }}">Log in</a>
+                <a href="{{ path('fos_user_registration_register') }}">Register</a>
+            {% endif %}
+        </nav>
+        <div class="content">
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

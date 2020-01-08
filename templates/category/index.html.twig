@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <h1>Category index</h1>
+        {% for category in categories %}
+            <div class="post">
+                <div class="post__content--category">
+                    <a href="{{ path('category_posts', {'id': category.id}) }}">{{ category.name }} <small>({{ category.postCount }} posts)</small></a>
+                    <small>{{ category.description }}</small>
+                </div>
+            </div>
+        {% endfor %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('category_new') }}">Create new</a>
+        {% endif %}
+{% endblock %}

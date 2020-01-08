@@ -1,0 +1,86 @@
+<?php
+
+namespace Symfony\Component\VarExporter\Internal;
+
+return $getExpiry ? PHP_INT_MAX : Hydrator::hydrate(
+    $o = [
+        clone (($p = &Registry::$prototypes)['Doctrine\\ORM\\Query\\ParserResult'] ?? Registry::p('Doctrine\\ORM\\Query\\ParserResult')),
+        clone ($p['Doctrine\\ORM\\Query\\Exec\\SingleSelectExecutor'] ?? Registry::p('Doctrine\\ORM\\Query\\Exec\\SingleSelectExecutor')),
+        clone ($p['Doctrine\\ORM\\Query\\ResultSetMapping'] ?? Registry::p('Doctrine\\ORM\\Query\\ResultSetMapping')),
+    ],
+    null,
+    [
+        'Doctrine\\ORM\\Query\\ParserResult' => [
+            '_sqlExecutor' => [
+                $o[1],
+            ],
+            '_resultSetMapping' => [
+                $o[2],
+            ],
+            '_parameterMappings' => [
+                [
+                    'val' => [
+                        0,
+                    ],
+                ],
+            ],
+        ],
+        'Doctrine\\ORM\\Query\\Exec\\AbstractSqlExecutor' => [
+            '_sqlStatements' => [
+                1 => 'SELECT p0_.id AS id_0, p0_.content AS content_1, p0_.approved AS approved_2, p0_.category_id AS category_id_3, p0_.user_id AS user_id_4, p0_.parent AS parent_5 FROM post p0_ WHERE p0_.category_id = ? AND p0_.parent IS NULL ORDER BY p0_.id ASC LIMIT 100',
+            ],
+        ],
+        'stdClass' => [
+            'aliasMap' => [
+                2 => [
+                    'p' => 'App\\Entity\\Post',
+                ],
+            ],
+            'fieldMappings' => [
+                2 => [
+                    'id_0' => 'id',
+                    'content_1' => 'content',
+                    'approved_2' => 'approved',
+                ],
+            ],
+            'typeMappings' => [
+                2 => [
+                    'category_id_3' => 'integer',
+                    'user_id_4' => 'integer',
+                    'parent_5' => 'integer',
+                ],
+            ],
+            'entityMappings' => [
+                2 => [
+                    'p' => null,
+                ],
+            ],
+            'metaMappings' => [
+                2 => [
+                    'category_id_3' => 'category_id',
+                    'user_id_4' => 'user_id',
+                    'parent_5' => 'parent',
+                ],
+            ],
+            'columnOwnerMap' => [
+                2 => [
+                    'id_0' => 'p',
+                    'content_1' => 'p',
+                    'approved_2' => 'p',
+                    'category_id_3' => 'p',
+                    'user_id_4' => 'p',
+                    'parent_5' => 'p',
+                ],
+            ],
+            'declaringClasses' => [
+                2 => [
+                    'id_0' => 'App\\Entity\\Post',
+                    'content_1' => 'App\\Entity\\Post',
+                    'approved_2' => 'App\\Entity\\Post',
+                ],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+);
